@@ -1,9 +1,32 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Country } from "../entities/Country";
 import { dataSource } from "../dataSource/dataSource";
 
 @Resolver()
 export class CountryResolver {
+
+    @Query(_ => [Country])
+    async getAllCountries(): Promise<Country[]> {
+        const countries = await dataSource.manager.find(Country);
+        return countries;
+    }
+
+    @Query(_ => Country, { nullable: true })
+    async getCountryByCode(
+        @Arg("code") code: string
+    ): Promise<Country | null> {
+        const countryByCode = await dataSource.manager.findOneBy(Country, { code });
+        return countryByCode;
+    }
+
+    @Query(_ => [Country], { nullable: true })
+    async getCountryByContinent(
+        @Arg("continent") continent: string
+    ): Promise<Country[] | null> {
+        const countriesbyContinent = await dataSource.manager.findBy(Country, { continent });
+        return countriesbyContinent;
+    }
+
     @Mutation(_ => Country)
     async createCountry(
         @Arg("code") code: string,
