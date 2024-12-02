@@ -6,6 +6,7 @@ import { buildSchema } from "type-graphql";
 import { dataSource } from "./dataSource/dataSource";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { initTestData } from "./dataSource/initTestData";
+import { cleanDB } from "./dataSource/cleanDB";
 
 
 const port = 4444;
@@ -25,9 +26,10 @@ export async function startServerApollo() {
     // 3. initialisation de la datasource TypeORM
     await dataSource.initialize();
     // 3bis. appel des autres services d'initialisation
+    await cleanDB();
     await initTestData();
 
-    // 4. démarrage du serveur et transmission du JWT
+    // 4. démarrage du serveur
     const { url } = await startStandaloneServer(server, {
         listen: { port }
     });

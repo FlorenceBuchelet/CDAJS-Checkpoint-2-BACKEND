@@ -1,0 +1,78 @@
+### Get all countries
+# query QueryAllCountries {
+#     getAllCountries {
+#         code
+#         name
+#         emoji
+#     }
+# }
+
+POST http://localhost:4444/
+Content-Type: application/json
+
+{
+    "query": "query QueryAllCountries { getAllCountries { code name emoji } }"
+}
+
+### Get country by code
+# query GetCountryByCode($code: String!) {
+#     getCountryByCode(code: $code) {
+#         code
+#         name
+#         emoji
+#     }
+# }
+
+POST http://localhost:4444/
+Content-Type: application/json
+
+{
+    "query": "query GetCountryByCode($code: String!) { getCountryByCode(code: $code) { code name emoji } }",
+    "variables": {
+        "code": "GB"
+    }
+}
+
+### Get countries by continent
+# query GetCountryByContinent($continent: String!) {
+#     getCountryByContinent(continent: $continent) {
+#         code
+#         name
+#         emoji
+#         continent
+#     }
+# }
+
+POST http://localhost:4444/
+Content-Type: application/json
+
+{
+    "query": "query GetCountryByContinent($continent: String!) { getCountryByContinent(continent: $continent) { code name emoji continent } }",
+    "variables": {
+        "continent": "Europe"
+    }
+}
+
+### Create country
+# mutation CreateCountry($continent: String!, $emoji: String!, $name: String!, $code: String!) {
+#     createCountry(continent: $continent, emoji: $emoji, name: $name, code: $code) {
+#         id
+#         code
+#         name
+#         emoji
+#         continent
+#     }
+# }
+
+POST http://localhost:4444/
+Content-Type: application/json
+
+{
+    "query": "mutation CreateCountry($continent: String!, $emoji: String!, $name: String!, $code: String!) { createCountry(continent: $continent, emoji: $emoji, name: $name, code: $code) { id code name emoji continent } }",
+    "variables": {
+        "continent": "Europe",
+        "emoji": "🍝",
+        "name": "Italy",
+        "code": "IT"
+    }
+}
