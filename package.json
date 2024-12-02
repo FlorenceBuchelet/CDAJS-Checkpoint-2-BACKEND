@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "description": "",
-"dependencies": {
+  "dependencies": {
     "@apollo/server": "^4.10.2",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
